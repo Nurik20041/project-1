@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="Бронирование квартиры SubNest в Алматы. Забронируйте онлайн современную квартиру посуточно.">
+    <title>Бронирование — SubNest</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <ul>
+            <li><a href="index.html" data-i18n="nav.home">Главная</a></li>
+            <li><a href="index.html#gallery" data-i18n="nav.gallery">Галерея</a></li>
+            <li><a href="index.html#features" data-i18n="nav.features">Удобства</a></li>
+            <li><a href="index.html#about" data-i18n="nav.about">О нас</a></li>
+            <li><a href="booking.html" class="highlight" data-i18n="nav.booking">Бронирование</a></li>
+            <li><button id="lang-toggle" class="lang-toggle">Қаз/En</button></li>
+        </ul>
+    </nav>
+
+    <header class="booking-header">
+        <h1 data-i18n="booking.title">Забронируйте квартиру</h1>
+    </header>
+    
+    <main class="booking-form fade-in">
+        <div class="price-summary" id="price-summary" style="display: none;">
+            <h3 data-i18n="booking.price_summary">Стоимость бронирования</h3>
+            <div class="price-details">
+                <p><span data-i18n="booking.nights">Ночей</span>: <span id="nights-count">0</span></p>
+                <p><span data-i18n="booking.price_per_night">Цена за ночь</span>: <span id="price-per-night">15,000 ₸</span></p>
+                <p class="total-price"><span data-i18n="booking.total">Итого</span>: <strong id="total-price">0 ₸</strong></p>
+                <p class="discount-notice" id="discount-notice" style="display: none;"></p>
+            </div>
+        </div>
+        
+        <form id="booking-form" action="https://formspree.io/f/mldbqdad" method="POST">
+            <div class="calendar-container" id="calendar-container"></div>
+            
+            <div class="form-group">
+                <label for="name" data-i18n="booking.name">Ваше имя</label>
+                <input type="text" id="name" name="name" required />
+            </div>
+            
+            <div class="form-group">
+                <label for="phone" data-i18n="booking.phone">Телефон</label>
+                <input type="tel" id="phone" name="phone" required />
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="datein" data-i18n="booking.check_in">Дата заезда</label>
+                    <input type="date" id="datein" name="datein" required />
+                </div>
+                
+                <div class="form-group">
+                    <label for="dateout" data-i18n="booking.check_out">Дата выезда</label>
+                    <input type="date" id="dateout" name="dateout" required />
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="guests" data-i18n="booking.guests">Количество гостей</label>
+                <select id="guests" name="guests">
+                    <option value="1" data-i18n="booking.guest_1">1 гость</option>
+                    <option value="2" selected data-i18n="booking.guest_2">2 гостя</option>
+                    <option value="3" data-i18n="booking.guest_3">3 гостя</option>
+                    <option value="4" data-i18n="booking.guest_4">4 гостя</option>
+                    <option value="5+" data-i18n="booking.guest_5">5+ гостей</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="message" data-i18n="booking.special_requests">Дополнительные пожелания</label>
+                <textarea id="message" name="message" rows="4"></textarea>
+            </div>
+            
+            <button type="submit" class="btn btn-block" data-i18n="booking.submit">Отправить заявку</button>
+        </form>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <h3 data-i18n="footer.questions">Есть вопросы?</h3>
+            <p data-i18n="footer.contact_us">Свяжитесь с нами любым удобным способом:</p>
+            <p>
+                <a href="https://wa.me/77009167704" class="contact-link">WhatsApp</a> | 
+                <a href="https://t.me/subnestnna" class="contact-link">Telegram</a> | 
+                <a href="https://instagram.com/subnest" class="contact-link">Instagram</a>
+            </p>
+        </div>
+        <p>&copy; 2025 SubNest / NNA. <span data-i18n="footer.rights">Все права защищены.</span></p>
+    </footer>
+    
+    <script src="js/script.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/booking.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const i18n = new I18n();
+            i18n.init();
+            
+            // Language toggle
+            document.getElementById('lang-toggle').addEventListener('click', function() {
+                const currentLang = i18n.currentLanguage;
+                if (currentLang === 'ru') i18n.changeLanguage('kz');
+                else if (currentLang === 'kz') i18n.changeLanguage('en');
+                else i18n.changeLanguage('ru');
+            });
+            
+            // Initialize booking system
+            new BookingSystem();
+        });
+    </script>
+</body>
+</html>
